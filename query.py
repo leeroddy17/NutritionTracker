@@ -36,9 +36,10 @@ def rankBy(hits, sortingTerm):
 
 
 
-# get user input, dummy input rn since front end not created yet
+# this will be gotten by user input, dummy input rn since front end not created yet
 queryterm = "cheddar cheese"
+rankbyvalue = "nf_calories"
 
 hits = querry(queryterm)
 
-print(rankBy(hits, "nf_calories"))
+print(rankBy(hits, rankbyvalue))
