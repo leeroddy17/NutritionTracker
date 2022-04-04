@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+          $('a#test').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/background_process_test',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
+
+{% block title %}Home Index{% endblock %}
+
+{% block content %}
+<form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Input Food Item</label>
+    <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+<!--    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+  </div>
+
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+
+  <button type="submit" class="btn btn-primary" onclick="function()">Submit</button>
+</form>
+{% endblock %}
