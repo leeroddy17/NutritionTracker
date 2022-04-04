@@ -1,9 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request
-# from flask import *
 from query import *
 
 app = Flask(__name__)
-
 
 @app.route("/", methods=["GET", "POST"])
 def home():
