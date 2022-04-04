@@ -1,0 +1,62 @@
+<html>
+
+    <head>
+
+        <body>
+            <section class="header">
+                    <nav>
+                        <div class="nav-links" id = "navLinks">
+                            <div style = "text-align:right; padding-right:100px">
+                                <a href="index.html">Home</a>
+                                <a href="#Aboutus.html">About Us</a>
+                                <a href="#Recipe.html">Recipe</a>
+                                <a href="#Tracker.html">Nutrition Tracker</a>
+
+
+                            </div>
+                          </div>
+
+                    </nav>  
+    
+
+
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Nutrition Tracker</title>
+        <!-- <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='scss/mystyle.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='sjs/myscripts.js') }}"></script>
+    </head>
+    <body onload="toCode();processing();setUp();">
+        <div class="container-fluid">
+            <div class="jumbotron text-center" id="thisthign">
+                    <h1 id="codePro"><i class="fab fa-kickstarter fa-3x"></i>Nutrition Tracker&nbsp;</h1>
+                    <p>A new way to think about your health needs
+                    </p>
+            </div>
+        <center>
+                    <form class="container" method="POST">
+                        <label for="goal">Search for Food</label>
+                        <input type="text" name="goal" id="goalBox">
+                        <!-- <label for="backers">Assumed number of backers</label>
+                        <input type="text" name="backers" id="backersBox"> -->
+                        <input type="submit" name="submit" id="submitButton">
+                    </form>
+        </center>
+            
+
+            <div class="jumbotron text-center" id="outputBox">
+                <!-- <h2>Your Future Awaits</h2>
+                <h4>Your project will: </h4>
+                <h3 id="processing">Processing</h3> -->
+                <!-- <h3 id="result"><p>{{data}}</p></h3> -->
+            </div>
+        </div>
+    </body>
+</html>
