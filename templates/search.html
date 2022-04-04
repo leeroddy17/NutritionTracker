@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block title %}Search Page{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h1>Results for {{item}}:</h1>
+    <p>Top 10 hits from API are:</p>
+    <ol>
+    {% for d in results %}
+        <li>Name: {{d['fields']['item_name']}} | Brand: {{d['fields']['brand_name']}} | nf_calories:
+            {{d['fields']['nf_calories']}}</li>
+    {% endfor %}
+    </ol>
+</div>
+
+{% endblock %}

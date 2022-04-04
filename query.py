@@ -19,8 +19,8 @@ def querry(querry):
 
     response = requests.request("GET", url, headers=headers, params=querystring)
     dictionary = response.json()
-    for i in dictionary["hits"]:
-        print(i)
+    # for i in dictionary["hits"]:
+    #     print(i)
     return dictionary["hits"]
 
 def rankBy(hits,cat,incr = True):

@@ -1,28 +1,34 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
+# from flask import *
 from query import *
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def home():
-    return render_template("index.html")
+    if request.method == "POST":
+        searchItem = request.form["foodItem"]
+        print(searchItem)
+        return redirect(url_for("search", foodItem=searchItem))
+    else:
+        return render_template("index.html")
 
-#background process happening without any refreshing
-@app.route('/background_process_test')
-def background_process_test():
-    queryterm = "cheddar cheese"
+@app.route("/about-us")
+def about():
+    return render_template("about.html")
+
+@app.route("/<foodItem>")
+def search(foodItem):
     rankbyvalue = "nf_calories"
 
-    hits = querry(queryterm)
+    hits = querry(foodItem)
     increasing = False
 
-    print(rankBy(hits, rankbyvalue, increasing))
+    print(hits)
+    # print(rankBy(hits, rankbyvalue, increasing))
 
-
-@app.route("/test")
-def test():
-    return render_template("newpage.html")
+    return render_template("search.html", item=foodItem, results=hits)
 
 
 if __name__ == '__main__':
