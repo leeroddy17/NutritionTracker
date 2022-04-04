@@ -20,13 +20,18 @@ add new routes to our application as well as using python to do our backend and 
 (such as the search() function running python code before rendering the pages)
 
 
-templates - holds the html files \
+templates - holds the html files \\
+
     - base.html - The base file that contains the navbar, since it is consistent across all pages, other pages will 
                     inherit from this class and build on top of it.
+                    
     - index.html - Our home page, contains the search bar to query for foods
+    
     - search.html - Once you search for an item, this page will print the top 10 items directly from the API. We can
                     decide later how we want this page to look, I was just making sure the backend algos and frontend 
                     were connected
+                    
     - about.html - Incomplete, "About Us" page from the sketch
+
 
 query.py - Contains our core algorithms
