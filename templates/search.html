@@ -5,13 +5,36 @@
 
 {% block content %}
 <div class="container">
-    <h1>Results for {{item}}:</h1>
-    <p>Top 10 hits from API are:</p>
+    <h1>Top 10 Results for {{item}}:</h1>
+
     <ol>
-    {% for d in results %}
-        <li>Name: {{d['fields']['item_name']}} | Brand: {{d['fields']['brand_name']}} | nf_calories:
-            {{d['fields']['nf_calories']}}</li>
-    {% endfor %}
+
+        <style>
+            table.tb { width: 700px; }
+            .tb th, .tb td {  padding: 5px; }
+        </style>
+
+        <table class = "tb">
+
+        {% for d in results %}    
+            
+            <tr>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Calories</th>
+            </tr>
+            <tr>
+              <td>{{d['fields']['item_name']}}</td>
+              <td>{{d['fields']['brand_name']}}</td>
+              <td>{{d['fields']['nf_calories']}}</td>
+            </tr>
+
+            {% endfor %}
+          </table>
+
+    
+
+
     </ol>
 </div>
 
