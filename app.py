@@ -7,8 +7,9 @@ app = Flask(__name__)
 def home():
     if request.method == "POST":
         searchItem = request.form["foodItem"]
+        searchMult = request.form["servingMult"]
         print(searchItem)
-        return redirect(url_for("search", foodItem=searchItem))
+        return redirect(url_for("search", foodItem=searchItem, servingMult=searchMult))
     else:
         return render_template("index.html")
 
@@ -16,8 +17,8 @@ def home():
 def about():
     return render_template("about.html")
 
-@app.route("/<foodItem>")
-def search(foodItem):
+@app.route("/<foodItem>/<servingMult>/")
+def search(foodItem, servingMult):
     rankbyvalue = "nf_calories"
 
     hits = querry(foodItem)
@@ -26,7 +27,7 @@ def search(foodItem):
     print(hits)
     # print(rankBy(hits, rankbyvalue, increasing))
 
-    return render_template("search.html", item=foodItem, results=hits)
+    return render_template("search.html", item=foodItem, mult=servingMult, results=hits)
 
 
 if __name__ == '__main__':

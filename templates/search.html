@@ -5,7 +5,11 @@
 
 {% block content %}
 <div class="container">
-    <h1>Top 10 Results for {{item}}:</h1>
+    {% if mult == "1" %}
+    <h1>Top 10 Results for {{mult}} serving of {{item}}:</h1>
+    {% else %}
+    <h1>Top 10 Results for {{mult}} servings of {{item}}:</h1>
+    {% endif %}
 
     <ol>
 
@@ -21,12 +25,39 @@
             <tr>
               <th>Name</th>
               <th>Brand</th>
-              <th>Calories</th>
+              <th>Calories per Serving</th>
+              <th>Calories in {{mult}} Servings</th>
             </tr>
             <tr>
               <td>{{d['fields']['item_name']}}</td>
               <td>{{d['fields']['brand_name']}}</td>
               <td>{{d['fields']['nf_calories']}}</td>
+
+              {#
+                for total calories calculation, couldnt figure out how to make something like {{(d['fields']['nf_calories'] * mult)|round(2)}} work for jinja2, couldnt use mult as a var, kept getting errors so i ended up coding it as below instead
+                if someone knows how to use the mult var this code could def be cleaned up
+              #}
+              {% if mult == "1" %}
+              <td>{{(d['fields']['nf_calories']*1)|round(2)}}</td>
+              {% elif mult == "2" %}
+              <td>{{(d['fields']['nf_calories']*2)|round(2)}}</td>
+              {% elif mult == "3" %}
+              <td>{{(d['fields']['nf_calories']*3)|round(2)}}</td>
+              {% elif mult == "4" %}
+              <td>{{(d['fields']['nf_calories']*4)|round(2)}}</td>
+              {% elif mult == "5" %}
+              <td>{{(d['fields']['nf_calories']*5)|round(2)}}</td>
+              {% elif mult == "6" %}
+              <td>{{(d['fields']['nf_calories']*6)|round(2)}}</td>
+              {% elif mult == "7" %}
+              <td>{{(d['fields']['nf_calories']*7)|round(2)}}</td>
+              {% elif mult == "8" %}
+              <td>{{(d['fields']['nf_calories']*8)|round(2)}}</td>
+              {% elif mult == "9" %}
+              <td>{{(d['fields']['nf_calories']*9)|round(2)}}</td>
+              {% elif mult == "10" %}
+              <td>{{(d['fields']['nf_calories']*10)|round(2)}}</td>
+              {% endif %}
             </tr>
 
             {% endfor %}
