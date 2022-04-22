@@ -6,12 +6,58 @@
 
 {% block content %}
 <div class="container">
-    <h1>Comparison</h1>
+    <form action="#" method="post">
+      <div class="mb-3">
+        <label for="foodItem" class="form-label">Compare New Item</label>
+        <input class="form-control" id="foodItem" name="foodItem">
+      </div>
+      <button type="submit" class="btn btn-primary" >Search</button>
+    </form>
+    {% for d in options %}
+      <li>
+          <form action="#" method="post">
+            Name: {{d['fields']['item_name']}} | 
+            <b>Brand: {{d['fields']['brand_name']}}</b>
+            <input type="hidden" name="add" value="{{d['fields']['item_name']}}">
+            <button type="submit" class="btn btn-primary" >Select</button>
+          </form>
+      </li>
+    {% endfor %}
+    {% if compare|length %}
+    <table class = "tb">
+          <tr>
+            {% for field in fields %}
+            <th>{{field}}</th>
+            {% endfor %}
+            <th></th>
+          </tr>
+    {% endif %}
+      {% for d in compare %}    
+        {% set outer_loop = loop %}
+          
+          <tr>
+            {% for field in fields %}
+            {% if outer_loop.index0 == superDict[field][0] %}
+            <td style="color:tomato">{{d['fields'][field]}}</td>
+            {% elif outer_loop.index0 == superDict[field][1] %}
+            <td style="color:darkgreen">{{d['fields'][field]}}</td>
+            {% else %}
+            <td>{{d['fields'][field]}}</td>
+            {% endif %}
+            {% endfor %}
+            <td>
+              <form action="#" method="post">
+              <input type="hidden" name="remove" value="{{loop.index0}}">
+              <button type="submit" class="btn btn-primary" >Remove</button>
+              </form>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </table>
+
 </div>
 
 
 
-
-
-        </p>
 {% endblock %}
