@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block title %}Oops! Error{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h1>Oops! There are no hits for the item you entered.</h1>
+    <br>
+    <h5>We couldn't find any food items called "{{item}}."</h5>
+    <br>
+    <p>Make sure you spelled the food item correctly. If you did, it seems like our database doesn't have the information for that item.</p>
+    <br>
+
+    <a href="/">
+        <button type="button" class="btn btn-primary">
+            Search Again
+        </button>
+    </a>
+
+</div>
+
+
+{% endblock %}
