@@ -49,6 +49,9 @@ def rankBy(hits,cat,incr = True):
     normalizedCat = 0
     
     for index, i in enumerate(hits):
+        if(type(i[cat]) is not float and type(i[cat]) is not int):
+            i[cat] = 0
+
         catRank[i['tags']['tag_id']] = [10-index,0]
         catRank[i['tags']['tag_id']][1] = i[cat]/float(i["serving_qty"])/float(i["serving_weight_grams"])
         
