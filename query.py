@@ -7,13 +7,13 @@ def createUrl(queryterm):
     url = "https://nutritionix-api.p.rapidapi.com/v1_1/search/" + queryterm
     return url
 
-def querry(querry):
+def querry(querry,fields=['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
+                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein','nf_potassium','nf_vitamin_d_mcg','nf_added_sugars','nf_ingredient_statement','item_description']):
     url = createUrl(querry)
-
-    q = ("item_name,brand_name,nf_calories,nf_serving_weight_grams,nf_total_fat,nf_total_carbohydrate,nf_dietary_fiber"
-         ",nf_sodium,nf_cholesterol,nf_sugars,nf_protein,nf_potassium,nf_vitamin_d_mcg,nf_added_sugars,nf_ingredient_statement,item_description")
-
-    querystring = {"fields":q}
+    fieldString = ''
+    for field in fields:
+        fieldString += field + ',' 
+    querystring = {"fields":fieldString[:-1]}
 
     headers = {
         "X-RapidAPI-Host": "nutritionix-api.p.rapidapi.com",
@@ -26,6 +26,21 @@ def querry(querry):
     #     print(i)
     return dictionary["hits"]
 
+def querryNameOnly(querry):
+    url = createUrl(querry)
+
+    querystring = {"fields":"item_name,brand_name,item_id"}
+
+    headers = {
+        "X-RapidAPI-Host": "nutritionix-api.p.rapidapi.com",
+        "X-RapidAPI-Key": "2f50ca2397mshff1a209d8be093ap1c0772jsn0f2d7d8caca4"
+    }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    dictionary = response.json()
+    # for i in dictionary["hits"]:
+    #     print(i)
+    return dictionary["hits"]
 def rankBy(hits,cat,incr = True):
     catRank = {}
     scores = {}
@@ -67,3 +82,20 @@ increasing = False
 
 print(rankBy(hits, rankbyvalue, increasing))
 
+def findSuperlatives(list,field):
+    if (len(list) > 1):
+        maxIndex = 0
+        maxVal = list[0]['fields'][field]
+        minIndex = 0
+        minVal = list[0]['fields'][field]
+        for index, element in enumerate(list):
+            if (element['fields'][field] > maxVal):
+                maxVal = element['fields'][field]
+                maxIndex = index
+            elif (element['fields'][field] < minVal):
+                minVal = element['fields'][field]
+                minIndex = index
+        print(maxIndex)
+        print(maxVal)
+        return minIndex,maxIndex
+    return None, None
