@@ -66,3 +66,4 @@ hits = querry(queryterm)
 increasing = False
 
 print(rankBy(hits, rankbyvalue, increasing))
+
