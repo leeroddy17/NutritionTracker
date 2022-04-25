@@ -56,11 +56,6 @@ def displayOptions():
             print(superDict)
             return render_template("comparison.html",compare = compare,fields=fields, superDict = superDict)
 
-
-@app.route("/<foodItem>")
-def search(foodItem):
-    return render_template("comparison.html")
-
 @app.route("/<foodItem>/<servingMult>/")
 def search(foodItem, servingMult):
     rankbyvalue = "nf_calories"

@@ -7,13 +7,13 @@ def createUrl(queryterm):
     url = "https://nutritionix-api.p.rapidapi.com/v1_1/search/" + queryterm
     return url
 
-def querry(querry,fields=['item_name','item_id','brand_name','nf_calories','nf_serving_weight_grams']):
+def querry(querry,fields=['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
+                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein','nf_potassium','nf_vitamin_d_mcg','nf_added_sugars','nf_ingredient_statement','item_description']):
     url = createUrl(querry)
     fieldString = ''
     for field in fields:
         fieldString += field + ',' 
     querystring = {"fields":fieldString[:-1]}
-
 
     headers = {
         "X-RapidAPI-Host": "nutritionix-api.p.rapidapi.com",
