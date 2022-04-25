@@ -25,12 +25,29 @@ def about():
 
 @app.route("/comparison")
 def comparison():
-    return render_template("comparison.html",compare = compare)
+    print(compare)
+    fields = ['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
+                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein','nf_potassium','nf_vitamin_d_mcg','nf_added_sugars']
+    labels = {'brand_name':'Brand','item_name':'Name','nf_calories':'Calories','nf_serving_weight_grams':'Grams','nf_total_fat':'Total Fat','nf_total_carbohydrate':'Carbs'
+                        ,'nf_dietary_fiber':'Fiber','nf_sodium':'Sodium','nf_cholesterol':'Cholesterol','nf_sugars':'Sugars','nf_protein':'Protien','nf_potassium':'Potassium'
+                        ,'nf_vitamin_d_mcg':'Vitamin D','nf_added_sugars':'Added Sugars'}
+    superDict = {}
+    for field in fields:
+        try:
+            float(compare[0]['fields'][field])
+            superDict[field] = findSuperlatives(compare,field)
+        except:
+            superDict[field] = (None,None)
+    return render_template("comparison.html",compare = compare,fields=fields,superDict = superDict)
 
 @app.route("/comparison", methods=["POST"])
 def displayOptions():
     if request.method == "POST":
-        fields = ['brand_name','item_name','nf_calories']
+        fields = ['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
+                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein','nf_potassium','nf_vitamin_d_mcg','nf_added_sugars']
+        labels = {'brand_name':'Brand','item_name':'Name','nf_calories':'Calories','nf_serving_weight_grams':'Grams','nf_total_fat':'Total Fat','nf_total_carbohydrate':'Carbs'
+                        ,'nf_dietary_fiber':'Fiber','nf_sodium':'Sodium','nf_cholesterol':'Cholesterol','nf_sugars':'Sugars','nf_protein':'Protien','nf_potassium':'Potassium'
+                        ,'nf_vitamin_d_mcg':'Vitamin D','nf_added_sugars':'Added Sugars'}
         try:
             searchItem = request.form["foodItem"]
             sortCat = request.form["sortCat"]
@@ -38,7 +55,7 @@ def displayOptions():
             print(searchItem)
             hits = querry(searchItem,fields=fields)
             print(hits)
-            return render_template("comparison.html",options=hits)
+            return render_template("comparison.html",options=hits,labels=labels)
         except:
             try:
                 name = request.form.get('add')

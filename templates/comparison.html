@@ -5,6 +5,7 @@
 
 
 {% block content %}
+
 <div class="container">
     <form action="#" method="post">
       <div class="mb-3">
@@ -13,21 +14,42 @@
       </div>
       <button type="submit" class="btn btn-primary" >Search</button>
     </form>
-    {% for d in options %}
-      <li>
-          <form action="#" method="post">
-            Name: {{d['fields']['item_name']}} | 
-            <b>Brand: {{d['fields']['brand_name']}}</b>
-            <input type="hidden" name="add" value="{{d['fields']['item_name']}}">
-            <button type="submit" class="btn btn-primary" >Select</button>
-          </form>
-      </li>
-    {% endfor %}
+  <div class="row">
+    {% if options|length %}
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        {% for d in options %}
+        <a class="list-group-item list-group-item-action" id="list-home-list{{loop.index0}}" data-toggle="list" href="#list-home{{loop.index0}}" role="tab" aria-controls="list-home{{loop.index0}}">
+            <h6 style="text-align:left;"> {{d['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{d['fields']['brand_name']}})</h6>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        {% for d in options %}
+        {% set outer_loop = loop %}
+        <div class="tab-pane fade show" id="list-home{{loop.index0}}" role="tabpanel" aria-labelledby="list-home-list{{loop.index0}}">
+            {%for key in d['fields']%}
+              {%if key in labels %}
+                  <h6 style="text-align:left;">{{labels[key]}} {{d['fields'][key]}} </h6>
+              {%endif%}
+            {%endfor%}
+            <form action="#" method="post">
+              <input type="hidden" name="add" value="{{d['fields']['item_name']}}">
+              <button type="submit" class="btn btn-primary" >Select</button>
+            </form>
+      </div>
+      {% endfor %}
+    </div>
+
+
+    {% endif %}
     {% if compare|length %}
     <table class = "tb">
           <tr>
             {% for field in fields %}
-            <th>{{field}}</th>
+            <th style="padding-right: 50px;">{{field}}</th>
             {% endfor %}
             <th></th>
           </tr>
@@ -38,11 +60,11 @@
           <tr>
             {% for field in fields %}
             {% if outer_loop.index0 == superDict[field][0] %}
-            <td style="color:tomato">{{d['fields'][field]}}</td>
+            <td style="color:tomato; padding-right: 50px;">{{d['fields'][field]}}</td>
             {% elif outer_loop.index0 == superDict[field][1] %}
-            <td style="color:darkgreen">{{d['fields'][field]}}</td>
+            <td style="color:darkgreen; padding-right: 50px;">{{d['fields'][field]}}</td>
             {% else %}
-            <td>{{d['fields'][field]}}</td>
+            <td style="padding-right: 50px;">{{d['fields'][field]}}</td>
             {% endif %}
             {% endfor %}
             <td>
@@ -55,7 +77,7 @@
 
           {% endfor %}
         </table>
-
+</div>
 </div>
 
 
