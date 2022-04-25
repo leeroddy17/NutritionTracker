@@ -3,18 +3,24 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
+<center>
+<a class="navbar-brand" href="#">
+  <img src="https://i.pinimg.com/222x/37/d6/68/37d6689c55c7cfb68c9353488283e81b.jpg" width="250" height="250" class="d-inline-block align-top" alt="">
+</a>
+  <h1>Welcome to the NutritionTracker!</h1>
+  <p>To get started, enter in the name of a food as well as the number of servings you wish to see the nutritious facts for...
+  </p>
+</center>
+
 <div class="container">
+
 <form action="#" method="post">
   <div class="mb-3">
     <label for="foodItem" class="form-label">Input Food Item</label>
     <input class="form-control" id="foodItem" name="foodItem">
-<!--    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+    <label for="servingMult" class="form-label">Input Number of Servings (1-10)</label>
+    <input class="form-control" id="servingMult" name="servingMult" type="number" value=1 min=1 max=10 step=1 onchange="this.value = parseInt(this.value);">
   </div>
-
-<!--  <div class="mb-3 form-check">-->
-<!--    <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-<!--    <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
-<!--  </div>-->
 
   <button type="submit" class="btn btn-primary" >Submit</button>
 </form>

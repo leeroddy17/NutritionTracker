@@ -14,6 +14,7 @@ def querry(querry,fields=['item_name','item_id','brand_name','nf_calories','nf_s
         fieldString += field + ',' 
     querystring = {"fields":fieldString[:-1]}
 
+
     headers = {
         "X-RapidAPI-Host": "nutritionix-api.p.rapidapi.com",
         "X-RapidAPI-Key": "2f50ca2397mshff1a209d8be093ap1c0772jsn0f2d7d8caca4"
