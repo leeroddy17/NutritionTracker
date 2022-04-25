@@ -22,8 +22,18 @@ def querry(querry,fields=['item_name','brand_name','nf_calories','nf_serving_wei
 
     response = requests.request("GET", url, headers=headers, params=querystring)
     dictionary = response.json()
-    # for i in dictionary["hits"]:
-    #     print(i)
+    
+    for i in dictionary["hits"]:
+        print(i)
+        for f in i['fields']:
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print(f)
+            print(i['fields'][f])
+            if (i['fields'][f] == None):
+                if (f != 'nf_serving_weight_grams'):
+                    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                    i['fields'][f] = 0
+    
     return dictionary["hits"]
 
 def querryNameOnly(querry):
@@ -35,11 +45,18 @@ def querryNameOnly(querry):
         "X-RapidAPI-Host": "nutritionix-api.p.rapidapi.com",
         "X-RapidAPI-Key": "2f50ca2397mshff1a209d8be093ap1c0772jsn0f2d7d8caca4"
     }
-
+    print("-----------------------------------------------------------")
     response = requests.request("GET", url, headers=headers, params=querystring)
     dictionary = response.json()
-    # for i in dictionary["hits"]:
-    #     print(i)
+    for i in dictionary["hits"]:
+        print(i)
+        for f in i['fields']:
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print(f)
+            print(i['fields'][f])
+            if (i['fields'][f] == 'None'):
+                i['fields'][f] = 0
+
     return dictionary["hits"]
 def rankBy(hits,cat,incr = True):
     catRank = {}

@@ -27,10 +27,9 @@ def about():
 def comparison():
     print(compare)
     fields = ['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
-                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein','nf_potassium','nf_vitamin_d_mcg','nf_added_sugars']
+                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein']
     labels = {'brand_name':'Brand','item_name':'Name','nf_calories':'Calories','nf_serving_weight_grams':'Grams','nf_total_fat':'Total Fat','nf_total_carbohydrate':'Carbs'
-                        ,'nf_dietary_fiber':'Fiber','nf_sodium':'Sodium','nf_cholesterol':'Cholesterol','nf_sugars':'Sugars','nf_protein':'Protien','nf_potassium':'Potassium'
-                        ,'nf_vitamin_d_mcg':'Vitamin D','nf_added_sugars':'Added Sugars'}
+                        ,'nf_dietary_fiber':'Fiber','nf_sodium':'Sodium','nf_cholesterol':'Cholesterol','nf_sugars':'Sugars','nf_protein':'Protien'}
     superDict = {}
     for field in fields:
         try:
@@ -38,20 +37,17 @@ def comparison():
             superDict[field] = findSuperlatives(compare,field)
         except:
             superDict[field] = (None,None)
-    return render_template("comparison.html",compare = compare,fields=fields,superDict = superDict)
+    return render_template("comparison.html",compare = compare,fields=fields,superDict = superDict,labels=labels)
 
 @app.route("/comparison", methods=["POST"])
 def displayOptions():
     if request.method == "POST":
         fields = ['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
-                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein','nf_potassium','nf_vitamin_d_mcg','nf_added_sugars']
+                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein']
         labels = {'brand_name':'Brand','item_name':'Name','nf_calories':'Calories','nf_serving_weight_grams':'Grams','nf_total_fat':'Total Fat','nf_total_carbohydrate':'Carbs'
-                        ,'nf_dietary_fiber':'Fiber','nf_sodium':'Sodium','nf_cholesterol':'Cholesterol','nf_sugars':'Sugars','nf_protein':'Protien','nf_potassium':'Potassium'
-                        ,'nf_vitamin_d_mcg':'Vitamin D','nf_added_sugars':'Added Sugars'}
+                        ,'nf_dietary_fiber':'Fiber','nf_sodium':'Sodium','nf_cholesterol':'Cholesterol','nf_sugars':'Sugars','nf_protein':'Protien'}
         try:
             searchItem = request.form["foodItem"]
-            sortCat = request.form["sortCat"]
-            sortOrder = request.form["sortOrder"]
             print(searchItem)
             hits = querry(searchItem,fields=fields)
             print(hits)
@@ -75,7 +71,7 @@ def displayOptions():
                 except:
                     superDict[field] = (None,None)
             print(superDict)
-            return render_template("comparison.html",compare = compare,fields=fields, superDict = superDict)
+            return render_template("comparison.html",compare = compare,fields=fields, superDict = superDict, labels=labels)
 
 @app.route("/<foodItem>/<sortCat>/<sortOrder>/")
 def search(foodItem, sortCat, sortOrder):

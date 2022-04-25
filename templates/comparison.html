@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container" style="padding-bottom: 50px;">
     <form action="#" method="post">
       <div class="mb-3">
         <label for="foodItem" class="form-label">Compare New Item</label>
@@ -14,7 +14,7 @@
       </div>
       <button type="submit" class="btn btn-primary" >Search</button>
     </form>
-  <div class="row">
+  <div class="row" style="padding-top: 50px;">
     {% if options|length %}
     <div class="col-4">
       <div class="list-group" id="list-tab" role="tablist">
@@ -47,9 +47,9 @@
     {% endif %}
     {% if compare|length %}
     <table class = "tb">
-          <tr>
+          <tr class="list-group-item">
             {% for field in fields %}
-            <th style="padding-right: 50px;">{{field}}</th>
+            <th style="padding-right: 50px;">{{labels[field]}}</th>
             {% endfor %}
             <th></th>
           </tr>
@@ -57,10 +57,10 @@
       {% for d in compare %}    
         {% set outer_loop = loop %}
           
-          <tr>
+          <tr class="list-group-item">
             {% for field in fields %}
             {% if outer_loop.index0 == superDict[field][0] %}
-            <td style="color:tomato; padding-right: 50px;">{{d['fields'][field]}}</td>
+            <td style="color:tomato; width: 50px; padding-right: 50px;">{{d['fields'][field]}}</td>
             {% elif outer_loop.index0 == superDict[field][1] %}
             <td style="color:darkgreen; padding-right: 50px;">{{d['fields'][field]}}</td>
             {% else %}
