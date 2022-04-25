@@ -48,15 +48,20 @@ def rankBy(hits,cat,incr = True):
     normalizedScores = 0
     normalizedCat = 0
     
-    for i in hits:
-        catRank[i['_id']] = [i['_score'],0]
-        catRank[i['_id']][1] = i["fields"][cat]/float(i["fields"]["nf_serving_size_qty"])/float(i["fields"]["nf_serving_weight_grams"])
+    for index, i in enumerate(hits):
+        catRank[i['tags']['tag_id']] = [10-index,0]
+        catRank[i['tags']['tag_id']][1] = i[cat]/float(i["serving_qty"])/float(i["serving_weight_grams"])
         
-        normalizedScores += i['_score']**2        
-        normalizedCat += (i["fields"][cat]/float(i["fields"]["nf_serving_size_qty"])/float(i["fields"]["nf_serving_weight_grams"])**2)
+        normalizedScores += (10-index)**2        
+        normalizedCat += (i[cat]/float(i["serving_qty"])/float(i["serving_weight_grams"])**2)
         
     normalizedScores = math.sqrt(normalizedScores)
     normalizedCat = math.sqrt(normalizedCat)
+
+    if(normalizedScores == 0):
+        normalizedScores = 1
+    if(normalizedCat == 0):
+        normalizedCat = 1
     
     for i in catRank:
         catRank[i][0] /= normalizedScores
@@ -69,13 +74,15 @@ def rankBy(hits,cat,incr = True):
     newHits = []
     for i in rankedDict:
         for j in hits:
-            if (i==j['_id']):
+            if (i==j['tags']['tag_id']):
+                print(j['food_name'])
                 newHits.append(j)
     return newHits
 
 
 
 # this will be gotten by user input, dummy input rn since front end not created yet
+"""
 queryterm = "cheddar cheese"
 rankbyvalue = "nf_calories"
 
@@ -86,6 +93,7 @@ for i in hits:
 newhits = rankBy(hits, rankbyvalue, increasing)
 for i in newhits:
     print(i['fields']['item_name'])
+"""
 
 def findSuperlatives(list,field):
     if (len(list) > 1):

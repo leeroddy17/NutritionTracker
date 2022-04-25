@@ -78,10 +78,7 @@ def search(foodItem, sortCat, sortOrder):
         sortOrder = True
 
     print("-------------------------------")
-    print(hits)
-    print("-------------------------------")
     hits = rankBy(hits, sortCat, sortOrder)
-    print(hits)
     print("-------------------------------")
     
 
