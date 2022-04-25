@@ -34,7 +34,7 @@ def get_hits(q):
     options = []
     for item in dictionary['common']:
         options.append(item['food_name'])
-        if len(options) == 5: # Caps the size at 10
+        if len(options) == 10: # Caps the size at 10
             break
 
     return options

@@ -64,12 +64,13 @@ def rankBy(hits,cat,incr = True):
         rankedDict = {i : (catRank[i][0]+catRank[i][1]) for i in catRank}
     else:
         rankedDict = {i : (catRank[i][0]-catRank[i][1]) for i in catRank}
-    rankedDict = dict(sorted(rankedDict.items(),key=(operator.itemgetter(1)),reverse=True))
+    rankedDict = list(dict(sorted(rankedDict.items(),key=(operator.itemgetter(1)),reverse=True)).keys())
+    newHits = []
     for i in rankedDict:
-        for item in hits:
-            if item['_id'] == i:
-                print(item['fields']['item_name'],catRank[i][0],catRank[i][1],rankedDict[i])
-    return rankedDict
+        for j in hits:
+            if (i==j['_id']):
+                newHits.append(j)
+    return newHits
 
 
 
@@ -79,8 +80,11 @@ rankbyvalue = "nf_calories"
 
 hits = querry(queryterm)
 increasing = False
-
-print(rankBy(hits, rankbyvalue, increasing))
+for i in hits:
+    print(i['fields']['item_name'])
+newhits = rankBy(hits, rankbyvalue, increasing)
+for i in newhits:
+    print(i['fields']['item_name'])
 
 def findSuperlatives(list,field):
     if (len(list) > 1):
