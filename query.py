@@ -44,15 +44,16 @@ def querryNameOnly(querry):
 def rankBy(hits,cat,incr = True):
     catRank = {}
     scores = {}
+    orderedHits = {}
     normalizedScores = 0
     normalizedCat = 0
     
     for i in hits:
         catRank[i['_id']] = [i['_score'],0]
-        catRank[i['_id']][1] = i["fields"][cat]/i["fields"]["nf_serving_size_qty"]/i["fields"]["nf_serving_weight_grams"]
+        catRank[i['_id']][1] = i["fields"][cat]/float(i["fields"]["nf_serving_size_qty"])/float(i["fields"]["nf_serving_weight_grams"])
         
         normalizedScores += i['_score']**2        
-        normalizedCat += (i["fields"][cat]/i["fields"]["nf_serving_size_qty"]/i["fields"]["nf_serving_weight_grams"])**2
+        normalizedCat += (i["fields"][cat]/float(i["fields"]["nf_serving_size_qty"])/float(i["fields"]["nf_serving_weight_grams"])**2)
         
     normalizedScores = math.sqrt(normalizedScores)
     normalizedCat = math.sqrt(normalizedCat)
@@ -64,12 +65,13 @@ def rankBy(hits,cat,incr = True):
         rankedDict = {i : (catRank[i][0]+catRank[i][1]) for i in catRank}
     else:
         rankedDict = {i : (catRank[i][0]-catRank[i][1]) for i in catRank}
-    rankedDict = dict(sorted(rankedDict.items(),key=(operator.itemgetter(1)),reverse=True))
+    rankedDict = list(dict(sorted(rankedDict.items(),key=(operator.itemgetter(1)),reverse=True)).keys())
+    newHits = []
     for i in rankedDict:
-        for item in hits:
-            if item['_id'] == i:
-                print(item['fields']['item_name'],catRank[i][0],catRank[i][1],rankedDict[i])
-    return rankedDict
+        for j in hits:
+            if (i==j['_id']):
+                newHits.append(j)
+    return newHits
 
 
 

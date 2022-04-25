@@ -73,11 +73,17 @@ def search(foodItem, sortCat, sortOrder):
         hits.append(get_facts(item))
 
     if sortOrder == "ascending":
-        sortOrder = True
-    else:
         sortOrder = False
+    else:
+        sortOrder = True
 
+    print("-------------------------------")
+    print(hits)
+    print("-------------------------------")
     hits = rankBy(hits, sortCat, sortOrder)
+    print(hits)
+    print("-------------------------------")
+    
 
     class_labels = []
     for i in range(0, 10):
