@@ -8,7 +8,7 @@
   <img src="https://i.pinimg.com/222x/37/d6/68/37d6689c55c7cfb68c9353488283e81b.jpg" width="250" height="250" class="d-inline-block align-top" alt="">
 </a>
   <h1>Welcome to the NutritionTracker!</h1>
-  <p>To get started, enter in the name of a food as well as the number of servings you wish to see the nutritious facts for...
+  <p>To get started, enter in the name of a food as well as what you would like to sort your results by...
   </p>
 </center>
 
@@ -18,30 +18,30 @@
   <div class="mb-3">
     <label for="foodItem" class="form-label">Input Food Item</label>
     <input class="form-control" id="foodItem" name="foodItem">
+    <label for="sortCat" class="form-label">Sory By:</label>
+    <select name="sortCat" id="sortCat">
+      <option value="nf_calories">Calories per Serving (cal)</option>
+      <option value="nf_total_fat">Total Fat per Serving (g)</option>
+      <option value="nf_total_carbohydrate">Total Carbs per Serving (g)</option>
+      <option value="nf_serving_weight_grams">Grams in 1 serving (g)</option>
+      <option value="nf_sodium">Sodium content per Serving (mg)</option>
+      <option value="nf_dietary_fiber">Dietary Fiber per Serving (g)</option>
+      <option value="nf_sugars">Total Sugar per Serving (g)</option>
+      <option value="nf_protein">Protein per Serving (g)</option>
+      <option value="nf_vitamin_a_dv">Vitamin A per Serving (Daily Value %)</option>
+      <option value="nf_vitamin_c_dv">Vitamin C per Serving (Daily Value %)</option>
+      <option value="nf_vitamin_d_mcg">Vitamin D per Serving (mcg)</option>
+      <option value="nf_iron_mg">Iron per Serving (mg)</option>
+      <option value="nf_calcium_mg">Calcium per Serving (mg)</option>
+      <option value="nf_potassium">Potassium per Serving (mg)</option>
+      <option value="nf_cholesterol">Cholesterol per Serving (mg)</option>
+      <option value="nf_added_sugars">Added Sugar per Serving (g)</option>
+    </select>
+    <select name="sortOrder" id="sortOrder">
+      <option value="ascending">Ascending</option>
+      <option value="descending">Descending</option>
+    </select>
   </div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
-  Advanced Settings
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Advanced Settings</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
   <button type="submit" class="btn btn-primary" >Submit</button>
 </form>

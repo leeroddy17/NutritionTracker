@@ -12,8 +12,10 @@ app = Flask(__name__)
 def home():
     if request.method == "POST":
         searchItem = request.form["foodItem"]
+        sortCat = request.form["sortCat"]
+        sortOrder = request.form["sortOrder"]
         print(searchItem)
-        return redirect(url_for("search", foodItem=searchItem))
+        return redirect(url_for("search", foodItem=searchItem, sortCat=sortCat, sortOrder=sortOrder))
     else:
         return render_template("index.html")
 
@@ -31,6 +33,8 @@ def displayOptions():
         fields = ['brand_name','item_name','nf_calories']
         try:
             searchItem = request.form["foodItem"]
+            sortCat = request.form["sortCat"]
+            sortOrder = request.form["sortOrder"]
             print(searchItem)
             hits = querry(searchItem,fields=fields)
             print(hits)
@@ -56,8 +60,8 @@ def displayOptions():
             print(superDict)
             return render_template("comparison.html",compare = compare,fields=fields, superDict = superDict)
 
-@app.route("/<foodItem>/")
-def search(foodItem):
+@app.route("/<foodItem>/<sortCat>/<sortOrder>/")
+def search(foodItem, sortCat, sortOrder):
 
     items = get_hits(foodItem)
 
@@ -68,6 +72,12 @@ def search(foodItem):
     for item in items:
         hits.append(get_facts(item))
 
+    if sortOrder == "ascending":
+        sortOrder = True
+    else:
+        sortOrder = False
+
+    hits = rankBy(hits, sortCat, sortOrder)
 
     class_labels = []
     for i in range(0, 10):
