@@ -81,8 +81,11 @@ rankbyvalue = "nf_calories"
 
 hits = querry(queryterm)
 increasing = False
-
-print(rankBy(hits, rankbyvalue, increasing))
+for i in hits:
+    print(i['fields']['item_name'])
+newhits = rankBy(hits, rankbyvalue, increasing)
+for i in newhits:
+    print(i['fields']['item_name'])
 
 def findSuperlatives(list,field):
     if (len(list) > 1):

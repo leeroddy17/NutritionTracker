@@ -15,117 +15,31 @@
     {% endif %}
 
 
-
-    <div class="row">
+  
+  <div class="row">
+  
   <div class="col-4">
     <div class="list-group" id="list-tab" role="tablist">
+      {% for d in results %}
       <a class="list-group-item list-group-item-action" id="list-home-list0" data-toggle="list" href="#list-home0" role="tab" aria-controls="list-home0">
-          <h6 style="text-align:left;"> {{results[0]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[0]['fields']['brand_name']}})</h6>
+          <h6 style="text-align:left;"> {{d['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{d['fields']['brand_name']}})</h6>
       </a>
-        <a class="list-group-item list-group-item-action" id="list-home-list1" data-toggle="list" href="#list-home1" role="tab" aria-controls="list-home1">
-          <h6 style="text-align:left;"> {{results[1]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[1]['fields']['brand_name']}})</h6>
-      </a>
-        <a class="list-group-item list-group-item-action" id="list-home-list2" data-toggle="list" href="#list-home2" role="tab" aria-controls="list-home2">
-          <h6 style="text-align:left;"> {{results[2]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[2]['fields']['brand_name']}})</h6>
-      </a>
-        <a class="list-group-item list-group-item-action" id="list-home-list3" data-toggle="list" href="#list-home3" role="tab" aria-controls="list-home3">
-          <h6 style="text-align:left;"> {{results[3]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[3]['fields']['brand_name']}})</h6>
-      </a>
-        <a class="list-group-item list-group-item-action" id="list-home-list4" data-toggle="list" href="#list-home4" role="tab" aria-controls="list-home4">
-          <h6 style="text-align:left;"> {{results[4]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[4]['fields']['brand_name']}})</h6>
-      </a>
-        <a class="list-group-item list-group-item-action" id="list-home-list5" data-toggle="list" href="#list-home5" role="tab" aria-controls="list-home5">
-          <h6 style="text-align:left;"> {{results[5]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[5]['fields']['brand_name']}})</h6>
-      </a>
-        <a class="list-group-item list-group-item-action" id="list-home-list6" data-toggle="list" href="#list-home6" role="tab" aria-controls="list-home6">
-          <h6 style="text-align:left;"> {{results[6]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[6]['fields']['brand_name']}})</h6>
-      </a>
-        <a class="list-group-item list-group-item-action" id="list-home-7" data-toggle="list" href="#list-home7" role="tab" aria-controls="list-home7">
-          <h6 style="text-align:left;"> {{results[7]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[7]['fields']['brand_name']}})</h6>
-      </a>
-        <a class="list-group-item list-group-item-action" id="list-home-list8" data-toggle="list" href="#list-home8" role="tab" aria-controls="list-home8">
-          <h6 style="text-align:left;"> {{results[8]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[8]['fields']['brand_name']}})</h6>
-      </a>
-        <a class="list-group-item list-group-item-action" id="list-home-list9" data-toggle="list" href="#list-home9" role="tab" aria-controls="list-home9">
-          <h6 style="text-align:left;"> {{results[9]['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{results[9]['fields']['brand_name']}})</h6>
-      </a>
-
+      {% endfor %}
     </div>
   </div>
+
   <div class="col-8">
     <div class="tab-content" id="nav-tabContent">
+      {% for d in results %}
       <div class="tab-pane fade show" id="list-home0" role="tabpanel" aria-labelledby="list-home-list0">
-          {%for key in results[0]['fields']%}
+          {%for key in d['fields']%}
             {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[0]['fields'][key]}} </h6>
+                <h6 style="text-align:left;">{{labels[key]}} {{d['fields'][key]}} </h6>
             {%endif%}
           {%endfor%}
 
-      </div>
-        <div class="tab-pane fade show" id="list-home1" role="tabpanel" aria-labelledby="list-home-list1">
-          {%for key in results[1]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[1]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-        <div class="tab-pane fade show" id="list-home2" role="tabpanel" aria-labelledby="list-home-list2">
-          {%for key in results[2]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[2]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-        <div class="tab-pane fade show" id="list-home3" role="tabpanel" aria-labelledby="list-home-list3">
-          {%for key in results[3]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[3]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-        <div class="tab-pane fade show" id="list-home4" role="tabpanel" aria-labelledby="list-home-list4">
-          {%for key in results[4]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[4]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-        <div class="tab-pane fade show" id="list-home5" role="tabpanel" aria-labelledby="list-home-list5">
-          {%for key in results[5]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[5]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-        <div class="tab-pane fade show" id="list-home6" role="tabpanel" aria-labelledby="list-home-list6">
-          {%for key in results[6]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[6]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-        <div class="tab-pane fade show" id="list-home7" role="tabpanel" aria-labelledby="list-home-list7">
-          {%for key in results[7]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[7]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-        <div class="tab-pane fade show" id="list-home8" role="tabpanel" aria-labelledby="list-home-list8">
-          {%for key in results[8]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[8]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-        <div class="tab-pane fade show" id="list-home9" role="tabpanel" aria-labelledby="list-home-list9">
-          {%for key in results[9]['fields']%}
-            {%if key in labels %}
-                <h6 style="text-align:left;">{{labels[key]}} {{results[9]['fields'][key]}} </h6>
-            {%endif%}
-          {%endfor%}
-      </div>
-
+      
+      {% endfor %}
     </div>
   </div>
 </div>

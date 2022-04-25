@@ -3,8 +3,8 @@ import json
 import pandas as pd
 
 
-api_id = 'fa6bfc04'
-api_key = '5e7d24d558ed232a2044d336d7cd38ff'
+api_id = 'fc07ac05'
+api_key = 'fd0ebb50a80fd221733255236e0c12ee'
 
 
 
@@ -34,7 +34,7 @@ def get_hits(q):
     options = []
     for item in dictionary['common']:
         options.append(item['food_name'])
-        if len(options) == 5: # Caps the size at 10
+        if len(options) == 10: # Caps the size at 10
             break
 
     return options
