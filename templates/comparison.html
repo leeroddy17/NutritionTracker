@@ -7,6 +7,7 @@
 {% block content %}
 
 <div class="container" style="padding-bottom: 50px;">
+
     <form action="#" method="post">
       <div class="mb-3">
         <label for="foodItem" class="form-label">Compare New Item</label>
@@ -17,79 +18,83 @@
       </div>
     </form>
 
+
     <div class="row">
-    {% if options|length %}
-    <div class="col-4">
-      <div class="list-group" id="list-tab" role="tablist">
-        {% for d in options %}
-        <a class="list-group-item list-group-item-action" id="list-home-list{{loop.index0}}" data-toggle="list" href="#list-home{{loop.index0}}" role="tab" aria-controls="list-home{{loop.index0}}">
-            <h6 style="text-align:left;"> {{d['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{d['fields']['brand_name']}})</h6>
-        </a>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="col-8">
-      <div class="tab-content" id="nav-tabContent">
-        {% for d in options %}
-        {% set outer_loop = loop %}
-        <div class="tab-pane fade show" id="list-home{{loop.index0}}" role="tabpanel" aria-labelledby="list-home-list{{loop.index0}}">
-            {%for key in d['fields']%}
-              {%if key in labels %}
-                  <h6 style="text-align:left;">{{labels[key]}} {{d['fields'][key]}} </h6>
-              {%endif%}
-            {%endfor%}
-            <form action="#" method="post">
-              <input type="hidden" name="add" value="{{d['fields']['item_name']}}">
-              <button type="submit" class="btn btn-primary" >Select</button>
-            </form>
-      </div>
-      {% endfor %}
-
-    </div>
-    {% endif %}
-
-
-      {% if compare|length %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            {% for field in fields %}
-            <th scope="col">{{labels[field]}}</th>
+        {% if options is defined and options|length > 0 %}
+        <div class="col-4"> <!-- List Card -->
+          <div class="list-group" id="list-tab" role="tablist">
+            {% for d in options %}
+            <a class="list-group-item list-group-item-action" id="list-home-list{{loop.index0}}" data-toggle="list" href="#list-home{{loop.index0}}" role="tab" aria-controls="list-home{{loop.index0}}">
+                <h6 style="text-align:left;"> {{d['fields']['item_name']}} </h6> <h6 style="text-align:right;">({{d['fields']['brand_name']}})</h6>
+            </a>
             {% endfor %}
-            <th scope="col">Remove?</th>
-          </tr>
-        </thead>
+          </div>
+        </div>
 
-        <tbody>
-          {% for d in compare %}
-          {% set outer_loop = loop %}
-          <tr>
-            <th scope="row"> {{outer_loop.index0 + 1}}</th>
-            {% for field in fields %}
-            {% if outer_loop.index0 == superDict[field][0] %}
-            <td style="color:darkgreen;">{{d['fields'][field]}}</td>
-            {% elif outer_loop.index0 == superDict[field][1] %}
-            <td style="color:tomato;">{{d['fields'][field]}}</td>
-            {% else %}
-            <td >{{d['fields'][field]}}</td>
+
+        <div class="col-8"> <!-- List Content -->
+          <div class="tab-content" id="nav-tabContent">
+            {% for d in options %}
+            {% set outer_loop = loop %}
+            <div class="tab-pane fade show" id="list-home{{loop.index0}}" role="tabpanel" aria-labelledby="list-home-list{{loop.index0}}">
+                {%for key in d['fields']%}
+                  {%if key in labels %}
+                      <h6 style="text-align:left;">{{labels[key]}} {{d['fields'][key]}} </h6>
+                  {%endif%}
+                {%endfor%}
+                <form action="#" method="post">
+                  <input type="hidden" name="add" value="{{d['fields']['item_name']}}">
+                  <button type="submit" class="btn btn-primary" >Select</button>
+                </form>
+            </div>
+          {% endfor %}
+        </div>
             {% endif %}
+
+
+          {% if compare is defined and compare|length > 0 %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                {% for field in fields %}
+                <th scope="col">{{labels[field]}}</th>
+                {% endfor %}
+                <th scope="col">Remove?</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for d in compare %}
+              {% set outer_loop = loop %}
+              <tr>
+                <th scope="row"> {{outer_loop.index0 + 1}}</th>
+                {% for field in fields %}
+                {% if outer_loop.index0 == superDict[field][0] %}
+                <td style="color:darkgreen;">{{d['fields'][field]}}</td>
+                {% elif outer_loop.index0 == superDict[field][1] %}
+                <td style="color:tomato;">{{d['fields'][field]}}</td>
+                {% else %}
+                <td >{{d['fields'][field]}}</td>
+                {% endif %}
+                {% endfor %}
+
+                <td>
+                  <form action="#" method="post">
+                  <input type="hidden" name="remove" value="{{loop.index0}}">
+                  <button type="submit" class="btn btn-primary" >Remove</button>
+                  </form>
+                </td>
+              </tr>
             {% endfor %}
 
-            <td>
-              <form action="#" method="post">
-              <input type="hidden" name="remove" value="{{loop.index0}}">
-              <button type="submit" class="btn btn-primary" >Remove</button>
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
 
-        </tbody>
-      </table>
-      {% endif %}
+        </div>
+    </div>
 
-</div>
 </div>
 
 

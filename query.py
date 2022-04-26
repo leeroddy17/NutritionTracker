@@ -9,6 +9,7 @@ def createUrl(queryterm):
 
 def querry(querry,fields=['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
                         ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein','nf_potassium','nf_vitamin_d_mcg','nf_added_sugars','nf_ingredient_statement','item_description']):
+
     url = createUrl(querry)
     fieldString = ''
     for field in fields:
@@ -24,14 +25,9 @@ def querry(querry,fields=['item_name','brand_name','nf_calories','nf_serving_wei
     dictionary = response.json()
     
     for i in dictionary["hits"]:
-        print(i)
         for f in i['fields']:
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            print(f)
-            print(i['fields'][f])
             if (i['fields'][f] == None):
                 if (f != 'nf_serving_weight_grams'):
-                    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
                     i['fields'][f] = 0
     
     return dictionary["hits"]
@@ -45,19 +41,16 @@ def querryNameOnly(querry):
         "X-RapidAPI-Host": "nutritionix-api.p.rapidapi.com",
         "X-RapidAPI-Key": "2f50ca2397mshff1a209d8be093ap1c0772jsn0f2d7d8caca4"
     }
-    print("-----------------------------------------------------------")
+
     response = requests.request("GET", url, headers=headers, params=querystring)
     dictionary = response.json()
     for i in dictionary["hits"]:
-        print(i)
         for f in i['fields']:
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            print(f)
-            print(i['fields'][f])
             if (i['fields'][f] == 'None'):
                 i['fields'][f] = 0
 
     return dictionary["hits"]
+
 def rankBy(hits,cat,incr = True):
     catRank = {}
     scores = {}
@@ -128,7 +121,5 @@ def findSuperlatives(list,field):
             elif (element['fields'][field] < minVal):
                 minVal = element['fields'][field]
                 minIndex = index
-        print(maxIndex)
-        print(maxVal)
         return minIndex,maxIndex
     return None, None
