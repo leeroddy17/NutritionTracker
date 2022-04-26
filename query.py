@@ -116,10 +116,19 @@ def findSuperlatives(list,field):
         minVal = list[0]['fields'][field]
         for index, element in enumerate(list):
             if (element['fields'][field] > maxVal):
-                maxVal = element['fields'][field]
-                maxIndex = index
+                if (field == 'nf_dietary_fiber' or field == 'nf_protein'):
+                    minVal = element['fields'][field]
+                    minIndex = index
+                else:
+                    maxVal = element['fields'][field]
+                    maxIndex = index
             elif (element['fields'][field] < minVal):
-                minVal = element['fields'][field]
-                minIndex = index
-        return minIndex,maxIndex
+                if (field == 'nf_dietary_fiber' or field == 'nf_protein'):
+                    maxVal = element['fields'][field]
+                    maxIndex = index 
+                else:
+                    minVal = element['fields'][field]
+                    minIndex = index
+        if (minIndex != maxIndex):
+            return minIndex,maxIndex
     return None, None
