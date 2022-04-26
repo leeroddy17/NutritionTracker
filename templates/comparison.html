@@ -12,9 +12,12 @@
         <label for="foodItem" class="form-label">Compare New Item</label>
         <input class="form-control" id="foodItem" name="foodItem">
       </div>
+      <div class="mb-3">
       <button type="submit" class="btn btn-primary" >Search</button>
+      </div>
     </form>
-  <div class="row" style="padding-top: 50px;">
+
+    <div class="row">
     {% if options|length %}
     <div class="col-4">
       <div class="list-group" id="list-tab" role="tablist">
@@ -41,32 +44,38 @@
             </form>
       </div>
       {% endfor %}
+
     </div>
-
-
     {% endif %}
-    {% if compare|length %}
-    <table class = "tb">
-          <tr class="list-group-item">
+
+
+      {% if compare|length %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
             {% for field in fields %}
-            <th style="padding-right: 50px;">{{labels[field]}}</th>
+            <th scope="col">{{labels[field]}}</th>
             {% endfor %}
-            <th></th>
+            <th scope="col">Remove?</th>
           </tr>
-    {% endif %}
-      {% for d in compare %}    
-        {% set outer_loop = loop %}
-          
-          <tr class="list-group-item">
+        </thead>
+
+        <tbody>
+          {% for d in compare %}
+          {% set outer_loop = loop %}
+          <tr>
+            <th scope="row"> {{outer_loop.index0 + 1}}</th>
             {% for field in fields %}
             {% if outer_loop.index0 == superDict[field][0] %}
-            <td style="color:tomato; width: 50px; padding-right: 50px;">{{d['fields'][field]}}</td>
+            <td style="color:darkgreen;">{{d['fields'][field]}}</td>
             {% elif outer_loop.index0 == superDict[field][1] %}
-            <td style="color:darkgreen; padding-right: 50px;">{{d['fields'][field]}}</td>
+            <td style="color:tomato;">{{d['fields'][field]}}</td>
             {% else %}
-            <td style="padding-right: 50px;">{{d['fields'][field]}}</td>
+            <td >{{d['fields'][field]}}</td>
             {% endif %}
             {% endfor %}
+
             <td>
               <form action="#" method="post">
               <input type="hidden" name="remove" value="{{loop.index0}}">
@@ -74,9 +83,12 @@
               </form>
             </td>
           </tr>
+        {% endfor %}
 
-          {% endfor %}
-        </table>
+        </tbody>
+      </table>
+      {% endif %}
+
 </div>
 </div>
 

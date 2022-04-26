@@ -23,34 +23,21 @@ def home():
 def about():
     return render_template("about.html")
 
-@app.route("/comparison")
-def comparison():
-    print(compare)
-    fields = ['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
-                        ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein']
-    labels = {'brand_name':'Brand','item_name':'Name','nf_calories':'Calories','nf_serving_weight_grams':'Grams','nf_total_fat':'Total Fat','nf_total_carbohydrate':'Carbs'
-                        ,'nf_dietary_fiber':'Fiber','nf_sodium':'Sodium','nf_cholesterol':'Cholesterol','nf_sugars':'Sugars','nf_protein':'Protien'}
-    superDict = {}
-    for field in fields:
-        try:
-            float(compare[0]['fields'][field])
-            superDict[field] = findSuperlatives(compare,field)
-        except:
-            superDict[field] = (None,None)
-    return render_template("comparison.html",compare = compare,fields=fields,superDict = superDict,labels=labels)
 
-@app.route("/comparison", methods=["POST"])
+@app.route("/comparison", methods=["GET", "POST"])
 def displayOptions():
     if request.method == "POST":
         fields = ['item_name','brand_name','nf_calories','nf_serving_weight_grams','nf_total_fat','nf_total_carbohydrate','nf_dietary_fiber'
                         ,'nf_sodium','nf_cholesterol','nf_sugars','nf_protein']
-        labels = {'brand_name':'Brand','item_name':'Name','nf_calories':'Calories','nf_serving_weight_grams':'Grams','nf_total_fat':'Total Fat','nf_total_carbohydrate':'Carbs'
-                        ,'nf_dietary_fiber':'Fiber','nf_sodium':'Sodium','nf_cholesterol':'Cholesterol','nf_sugars':'Sugars','nf_protein':'Protien'}
+        labels = {'brand_name': 'Brand', 'item_name': 'Name', 'nf_calories': 'Calories',
+                  'nf_serving_weight_grams': 'Grams', 'nf_total_fat': 'Total Fat (g)', 'nf_total_carbohydrate': 'Carbs (g)'
+            , 'nf_dietary_fiber': 'Fiber (g)', 'nf_sodium': 'Sodium (mg)', 'nf_cholesterol': 'Cholesterol (mg)',
+                  'nf_sugars': 'Sugars (g)', 'nf_protein': 'Protein (g)'}
         try:
             searchItem = request.form["foodItem"]
             print(searchItem)
             hits = querry(searchItem,fields=fields)
-            print(hits)
+            print("hits: ", hits)
             return render_template("comparison.html",options=hits,labels=labels)
         except:
             try:
@@ -72,6 +59,24 @@ def displayOptions():
                     superDict[field] = (None,None)
             print(superDict)
             return render_template("comparison.html",compare = compare,fields=fields, superDict = superDict, labels=labels)
+
+    else:
+        print(compare)
+        fields = ['item_name', 'brand_name', 'nf_calories', 'nf_serving_weight_grams', 'nf_total_fat',
+                  'nf_total_carbohydrate', 'nf_dietary_fiber'
+            , 'nf_sodium', 'nf_cholesterol', 'nf_sugars', 'nf_protein']
+        labels = {'brand_name': 'Brand', 'item_name': 'Name', 'nf_calories': 'Calories',
+                  'nf_serving_weight_grams': 'Grams', 'nf_total_fat': 'Total Fat (g)', 'nf_total_carbohydrate': 'Carbs (g)'
+            , 'nf_dietary_fiber': 'Fiber (g)', 'nf_sodium': 'Sodium (mg)', 'nf_cholesterol': 'Cholesterol (mg)',
+                  'nf_sugars': 'Sugars (g)', 'nf_protein': 'Protein (g)'}
+        superDict = {}
+        for field in fields:
+            try:
+                float(compare[0]['fields'][field])
+                superDict[field] = findSuperlatives(compare, field)
+            except:
+                superDict[field] = (None, None)
+        return render_template("comparison.html", compare=compare, fields=fields, superDict=superDict, labels=labels)
 
 @app.route("/<foodItem>/<sortCat>/<sortOrder>/")
 def search(foodItem, sortCat, sortOrder):
